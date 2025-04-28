@@ -10,7 +10,7 @@ export interface Blog {
   category: string;
   userId: number;
   deletedAt: Date | null;
-  createAt: Date;
+  createdAt: Date;
   updatedAt: Date;
   user?: User;
 }
