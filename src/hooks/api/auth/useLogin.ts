@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface Response extends User {
-  accesToken: string;
+  accessToken: string;
 }
 const useLogin = () => {
   const router = useRouter();
@@ -23,7 +23,8 @@ const useLogin = () => {
     },
     onSuccess: (data) => {
       toast.success("Login Success");
-      onAuthSuccess({ user: data, accesToken: data.accesToken });
+      console.log(data);
+      onAuthSuccess({ user: data, accessToken: data.accessToken });
       router.push("/");
     },
     onError: (error: AxiosError<any>) => {
