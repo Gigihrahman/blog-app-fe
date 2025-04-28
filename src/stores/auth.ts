@@ -1,16 +1,16 @@
 import { User } from "@/types/user";
-import { stat } from "fs";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
 type AuthStore = {
   user: User | null;
   accessToken: string | null;
   onAuthSuccess: ({
     user,
-    accesToken,
+    accessToken,
   }: {
     user: User;
-    accesToken: string;
+    accessToken: string;
   }) => void;
   clearAuth: () => void;
 };
