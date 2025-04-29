@@ -1,13 +1,14 @@
 "use client";
-import { useAuthStore } from "@/stores/auth";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
-  const { user, clearAuth } = useAuthStore();
+  const session = useSession();
+  console.log(session);
   const logout = () => {
-    clearAuth();
+    signOut({ redirect: false });
     router.push("/login");
   };
   return (
@@ -19,10 +20,10 @@ const Navbar = () => {
           <div className="flex cursor-pointer items-center gap-4">
             <Link href="/"> Home</Link>
 
-            {!!user && <Link href="/write">Write</Link>}
+            {!!session.data?.user && <Link href="/write">Write</Link>}
 
-            {!user && <Link href="/login">Sign in</Link>}
-            {!!user && <p onClick={logout}>Logout</p>}
+            {!session.data?.user && <Link href="/login">Sign in</Link>}
+            {!!session.data?.user && <p onClick={logout}>Logout</p>}
           </div>
         </div>
       </div>
