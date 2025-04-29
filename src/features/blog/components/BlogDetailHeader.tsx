@@ -34,7 +34,7 @@ const BlogDetailHeader: FC<BlogDetailHeaderProps> = ({ blog }) => {
           <ModalDeleteBlog isPending={isPending} onClick={handleDeleteBlog} />
         )}
       </div>
-      <div className="relative h-[360px]">
+      <div className="relative h-[240px] md:h-[360px]">
         <Image
           src={blog.thumbnail}
           alt="thumbnail"
