@@ -6,13 +6,13 @@ import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import { signIn } from "next-auth/react";
 interface Response extends User {
   accessToken: string;
 }
 const useLogin = () => {
   const router = useRouter();
-  const { onAuthSuccess } = useAuthStore();
+
   return useMutation({
     mutationFn: async (payload: Pick<User, "email" | "password">) => {
       const { data } = await axiosInstance.post<Response>(
@@ -21,10 +21,10 @@ const useLogin = () => {
       );
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
+      await signIn("credentials", { ...data, redirect: false });
       toast.success("Login Success");
       console.log(data);
-      onAuthSuccess({ user: data, accessToken: data.accessToken });
       router.push("/");
     },
     onError: (error: AxiosError<any>) => {
